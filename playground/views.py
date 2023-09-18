@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
-
-def calculate():
-    x = 1
-    y = 2
-    return x
+from store.models import Product
 
 
 def say_hello(request):
-    x = calculate()
+    query_set = Product.objects.all()
+
+    new_query = query_set.filter(title__contains="car")
+    for product in new_query:
+        print(product)
+
     return render(request, 'hello.html', {'name': 'Mosh'})
